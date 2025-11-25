@@ -56,20 +56,11 @@ Factory Droid CLI is a product built and maintained by [Factory AI](https://fact
 
 ## ⚡ **Quick Installation**
 
-### **Option 1: Install Script (Recommended)**
+### **Option 1: pipx (Recommended for Python users)**
 
 ```bash
-# Clone and install
-git clone https://github.com/Frexxis/SuperDroid.git
-cd SuperDroid
-./install.sh
-```
-
-### **Option 2: pipx (from GitHub)**
-
-```bash
-# Install from GitHub
-pipx install git+https://github.com/Frexxis/SuperDroid.git
+# Install from PyPI
+pipx install superdroid
 
 # Install commands, droids, and modes
 superdroid install
@@ -78,13 +69,26 @@ superdroid install
 superdroid doctor
 ```
 
-### **Option 3: npx (from GitHub)**
+### **Option 2: npm (Recommended for Node.js users)**
 
 ```bash
-# Clone and use npm
+# Install globally from npm
+npm install -g @frexxis/superdroid
+
+# Install commands, droids, and modes
+superdroid install
+
+# Verify installation
+superdroid doctor
+```
+
+### **Option 3: Install Script**
+
+```bash
+# Clone and install
 git clone https://github.com/Frexxis/SuperDroid.git
 cd SuperDroid
-node bin/superdroid.js install
+./install.sh
 ```
 
 ### **Option 4: Manual Installation**
