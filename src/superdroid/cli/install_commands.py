@@ -5,36 +5,102 @@ Installs slash commands, droids, and modes to Factory Droid CLI directories.
 """
 
 import shutil
+import sys
 from pathlib import Path
-from typing import Tuple, List, Set
-import importlib.resources
+from typing import Tuple, List, Set, Optional
+
+# Debug mode - set to True to see detailed path info
+DEBUG = False
+
+
+def debug_print(msg: str):
+    """Print debug message if DEBUG is enabled."""
+    if DEBUG:
+        print(f"[DEBUG] {msg}")
+
+
+def get_factory_source_dir() -> Optional[Path]:
+    """
+    Find the .factory directory in the installed package.
+    Tries multiple methods to ensure cross-platform compatibility.
+    """
+    import superdroid
+    
+    # Method 1: Check inside package directory (wheel install)
+    package_dir = Path(superdroid.__file__).parent
+    factory_path = package_dir / ".factory"
+    debug_print(f"Method 1 - Package dir: {package_dir}")
+    debug_print(f"Method 1 - .factory exists: {factory_path.exists()}")
+    if factory_path.exists():
+        return factory_path
+    
+    # Method 2: Check site-packages structure
+    # Sometimes installed as superdroid/.factory
+    site_packages = package_dir.parent
+    for possible in [
+        site_packages / "superdroid" / ".factory",
+        site_packages / ".factory",
+    ]:
+        debug_print(f"Method 2 - Checking: {possible}")
+        if possible.exists():
+            return possible
+    
+    # Method 3: Check relative to this file (dev install)
+    current = Path(__file__).resolve().parent
+    for _ in range(6):
+        factory_path = current / ".factory"
+        debug_print(f"Method 3 - Checking: {factory_path}")
+        if factory_path.exists():
+            return factory_path
+        current = current.parent
+    
+    # Method 4: Try importlib.resources (Python 3.9+)
+    try:
+        if sys.version_info >= (3, 9):
+            from importlib.resources import files
+            pkg_files = files("superdroid")
+            factory_path = Path(str(pkg_files)) / ".factory"
+            debug_print(f"Method 4 - importlib.resources: {factory_path}")
+            if factory_path.exists():
+                return factory_path
+    except Exception as e:
+        debug_print(f"Method 4 failed: {e}")
+    
+    # Method 5: Search in sys.path
+    for path in sys.path:
+        for possible in [
+            Path(path) / "superdroid" / ".factory",
+            Path(path) / ".factory",
+        ]:
+            if possible.exists():
+                debug_print(f"Method 5 - Found in sys.path: {possible}")
+                return possible
+    
+    return None
 
 
 def get_package_root() -> Path:
-    """Get the root directory of the installed package."""
-    import superdroid
+    """Get the .factory directory. Raises error with debug info if not found."""
+    factory_dir = get_factory_source_dir()
     
-    # First check: .factory inside the package (wheel install)
-    package_dir = Path(superdroid.__file__).parent
-    factory_in_package = package_dir / ".factory"
-    if factory_in_package.exists():
-        return package_dir
+    if factory_dir is None:
+        import superdroid
+        error_msg = f"""
+❌ Could not find SuperDroid .factory directory!
+
+Debug info:
+  - Python version: {sys.version}
+  - Package location: {Path(superdroid.__file__).parent}
+  - This file: {Path(__file__)}
+  - sys.path: {sys.path[:3]}...
+
+Please report this issue at:
+  https://github.com/Frexxis/SuperDroid/issues
+"""
+        raise FileNotFoundError(error_msg)
     
-    # Second check: .factory in project root (dev install)
-    project_root = package_dir.parent.parent
-    factory_in_root = project_root / ".factory"
-    if factory_in_root.exists():
-        return project_root
-    
-    # Fallback: try to find .factory relative to this file
-    current = Path(__file__).parent
-    for _ in range(5):
-        factory_path = current / ".factory"
-        if factory_path.exists():
-            return current
-        current = current.parent
-    
-    raise FileNotFoundError("Could not find SuperDroid .factory directory")
+    # Return parent of .factory for backward compatibility
+    return factory_dir.parent
 
 
 def list_available_commands() -> List[str]:

@@ -11,7 +11,7 @@ const fs = require('fs');
 const path = require('path');
 const os = require('os');
 
-const VERSION = '1.0.3';
+const VERSION = '1.0.4';
 const FACTORY_DIR = path.join(os.homedir(), '.factory');
 const COMMANDS_DIR = path.join(FACTORY_DIR, 'commands');
 const DROIDS_DIR = path.join(FACTORY_DIR, 'droids');
