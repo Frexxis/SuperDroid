@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "superdroid"
-version = "1.0.0"
+version = "1.0.1"
 description = "AI-enhanced development framework for Factory Droid CLI - 30 commands, 20 droids, 7 modes"
 readme = "README.md"
 license = {text = "MIT"}
@@ -48,6 +48,9 @@ superdroid = "superdroid.cli.main:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/superdroid"]
+
+[tool.hatch.build.targets.wheel.force-include]
+".factory" = "superdroid/.factory"
 
 [tool.hatch.build.targets.sdist]
 include = [

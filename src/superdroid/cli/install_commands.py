@@ -12,14 +12,19 @@ import importlib.resources
 
 def get_package_root() -> Path:
     """Get the root directory of the installed package."""
-    try:
-        import superdroid
-        package_path = Path(superdroid.__file__).parent.parent.parent
-        factory_path = package_path / ".factory"
-        if factory_path.exists():
-            return package_path
-    except:
-        pass
+    import superdroid
+    
+    # First check: .factory inside the package (wheel install)
+    package_dir = Path(superdroid.__file__).parent
+    factory_in_package = package_dir / ".factory"
+    if factory_in_package.exists():
+        return package_dir
+    
+    # Second check: .factory in project root (dev install)
+    project_root = package_dir.parent.parent
+    factory_in_root = project_root / ".factory"
+    if factory_in_root.exists():
+        return project_root
     
     # Fallback: try to find .factory relative to this file
     current = Path(__file__).parent

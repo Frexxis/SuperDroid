@@ -7,7 +7,7 @@
 # It performs the following steps:
 #   1. Creates necessary directories
 #   2. Installs 30 slash commands to ~/.factory/commands/
-#   3. Installs 16 droids to ~/.factory/droids/
+#   3. Installs 20 droids to ~/.factory/droids/
 #   4. Optionally copies AGENTS.md to current project
 #
 # Usage:
@@ -245,7 +245,7 @@ Options:
 Description:
     Installs SuperDroid Framework for Factory Droid CLI.
     - 30 slash commands
-    - 16 specialized droids
+    - 20 specialized droids
 
 Requirements:
     - Factory Droid CLI installed

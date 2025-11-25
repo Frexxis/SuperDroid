@@ -68,7 +68,7 @@ Use the security-engineer droid to review my authentication code
 ## Next Steps
 
 - Read [Commands Guide](../user-guide/commands.md) for all 30 commands
-- Read [Droids Guide](../user-guide/droids.md) for all 16 droids
+- Read [Droids Guide](../user-guide/droids.md) for all 20 droids
 - Copy `AGENTS.md` to your project for customization
 
 ## Troubleshooting

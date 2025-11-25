@@ -5,10 +5,12 @@
 ### **Transform Factory Droid CLI into a Structured Development Platform**
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-1.0.0-blue" alt="Version">
+  <img src="https://img.shields.io/badge/version-1.0.1-blue" alt="Version">
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License">
   <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome">
   <img src="https://img.shields.io/badge/Factory_Droid-CLI-purple" alt="Factory Droid CLI">
+  <a href="https://pypi.org/project/superdroid/"><img src="https://img.shields.io/pypi/v/superdroid" alt="PyPI"></a>
+  <a href="https://www.npmjs.com/package/@frexxis/superdroid"><img src="https://img.shields.io/npm/v/@frexxis/superdroid" alt="npm"></a>
 </p>
 
 <p align="center">
@@ -41,9 +43,9 @@
 
 ## 🎯 **Overview**
 
-SuperDroid is a **meta-programming configuration framework** that transforms [Factory Droid CLI](https://docs.factory.ai) into a structured development platform through behavioral instruction injection and component orchestration. It provides systematic workflow automation with powerful tools and intelligent droids (subagents).
+SuperDroid adapts [SuperClaude Framework](https://github.com/SuperClaude-Org/SuperClaude_Framework)'s **command/droid/mode architecture** for [Factory Droid CLI](https://docs.factory.ai). It provides 30 slash commands, 20 specialized droids, and 7 behavioral modes for structured development workflows.
 
-> **Inspired by**: [SuperClaude Framework](https://github.com/SuperClaude-Org/SuperClaude_Framework) - Adapted for Factory Droid CLI
+> **Note**: This is a prompt-level adaptation focusing on commands, droids, and modes. SuperClaude's pytest plugin, PM agent modules, and MCP code integration are not included (yet).
 
 ## Disclaimer
 

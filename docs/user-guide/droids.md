@@ -1,6 +1,6 @@
 # Droids Guide
 
-SuperDroid includes 16 specialized droids (subagents) for focused tasks.
+SuperDroid includes 20 specialized droids (subagents) for focused tasks.
 
 ## What are Droids?
 
