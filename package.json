@@ -1,0 +1,42 @@
+{
+  "name": "@frexxis/superdroid",
+  "version": "1.0.0",
+  "description": "AI-enhanced development framework for Factory Droid CLI - 30 commands, 20 droids, 7 modes",
+  "main": "bin/superdroid.js",
+  "bin": {
+    "superdroid": "./bin/superdroid.js"
+  },
+  "scripts": {
+    "postinstall": "node bin/postinstall.js"
+  },
+  "keywords": [
+    "factory",
+    "droid",
+    "ai",
+    "cli",
+    "automation",
+    "development",
+    "superdroid",
+    "commands",
+    "droids"
+  ],
+  "author": "Frexxis",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Frexxis/SuperDroid.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Frexxis/SuperDroid/issues"
+  },
+  "homepage": "https://github.com/Frexxis/SuperDroid#readme",
+  "files": [
+    "bin/",
+    ".factory/",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

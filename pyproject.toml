@@ -1,0 +1,75 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "superdroid"
+version = "1.0.0"
+description = "AI-enhanced development framework for Factory Droid CLI - 30 commands, 20 droids, 7 modes"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "Frexxis"}
+]
+requires-python = ">=3.10"
+keywords = ["factory", "droid", "ai", "automation", "framework", "cli", "development"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Environment :: Console",
+]
+
+dependencies = [
+    "click>=8.0.0",
+    "rich>=13.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "black>=22.0",
+    "ruff>=0.1.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/Frexxis/SuperDroid"
+GitHub = "https://github.com/Frexxis/SuperDroid"
+"Bug Tracker" = "https://github.com/Frexxis/SuperDroid/issues"
+
+[project.scripts]
+superdroid = "superdroid.cli.main:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/superdroid"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "src/",
+    ".factory/",
+    "README.md",
+    "LICENSE",
+    "pyproject.toml",
+]
+exclude = [
+    "*.pyc",
+    "__pycache__",
+    ".git*",
+    ".venv*",
+    "*.egg-info",
+    ".DS_Store",
+]
+
+[tool.black]
+line-length = 88
+target-version = ["py310", "py311", "py312"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"
