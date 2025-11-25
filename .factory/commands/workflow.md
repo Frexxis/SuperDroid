@@ -1,97 +1,97 @@
 ---
-description: Workflow automation and process management
-argument-hint: <workflow-name> [options]
+name: workflow
+description: "Generate structured implementation workflows from PRDs and feature requirements"
+category: orchestration
+complexity: advanced
+mcp-servers: [sequential, context7, magic, playwright, morphllm, serena]
+personas: [architect, analyzer, frontend, backend, security, devops, project-manager]
 ---
 
-# /workflow - Workflow Automation
+# /workflow - Implementation Workflow Generator
 
-Execute workflow for `$ARGUMENTS`:
+## Triggers
+- PRD and feature specification analysis for implementation planning
+- Structured workflow generation for development projects
+- Multi-persona coordination for complex implementation strategies
+- Cross-session workflow management and dependency mapping
 
-## Built-in Workflows
-
-### Development Workflow
+## Usage
 ```
-/workflow dev
+/workflow [prd-file|feature-description] [--strategy systematic|agile|enterprise] [--depth shallow|normal|deep] [--parallel]
 ```
-1. Pull latest changes
-2. Install dependencies
-3. Run linter
-4. Run tests
-5. Start dev server
 
-### Release Workflow
-```
-/workflow release --version 1.2.0
-```
-1. Run all tests
-2. Build production
-3. Update changelog
-4. Create git tag
-5. Prepare release notes
+## Behavioral Flow
+1. **Analyze**: Parse PRD and feature specifications to understand implementation requirements
+2. **Plan**: Generate comprehensive workflow structure with dependency mapping and task orchestration
+3. **Coordinate**: Activate multiple personas for domain expertise and implementation strategy
+4. **Execute**: Create structured step-by-step workflows with automated task coordination
+5. **Validate**: Apply quality gates and ensure workflow completeness across domains
 
-### Review Workflow
-```
-/workflow review
-```
-1. Check code style
-2. Run static analysis
-3. Run tests
-4. Generate coverage report
-5. Summarize findings
+Key behaviors:
+- Multi-persona orchestration across architecture, frontend, backend, security, and devops domains
+- Advanced MCP coordination with intelligent routing for specialized workflow analysis
+- Systematic execution with progressive workflow enhancement and parallel processing
+- Cross-session workflow management with comprehensive dependency tracking
 
-### CI Workflow
-```
-/workflow ci
-```
-1. Install dependencies
-2. Lint code
-3. Type check
-4. Run tests
-5. Build
+## MCP Integration
+- **Sequential MCP**: Complex multi-step workflow analysis and systematic implementation planning
+- **Context7 MCP**: Framework-specific workflow patterns and implementation best practices
+- **Magic MCP**: UI/UX workflow generation and design system integration strategies
+- **Playwright MCP**: Testing workflow integration and quality assurance automation
+- **Morphllm MCP**: Large-scale workflow transformation and pattern-based optimization
+- **Serena MCP**: Cross-session workflow persistence, memory management, and project context
 
-## Custom Workflows
+## Tool Coordination
+- **Read/Write/Edit**: PRD analysis and workflow documentation generation
+- **TodoWrite**: Progress tracking for complex multi-phase workflow execution
+- **Task**: Advanced delegation for parallel workflow generation and multi-agent coordination
+- **WebSearch**: Technology research, framework validation, and implementation strategy analysis
+- **sequentialthinking**: Structured reasoning for complex workflow dependency analysis
 
-Create custom workflows in `.factory/commands/`:
-
-```yaml
----
-description: My custom workflow
----
-
-# Steps:
-1. [Step 1]
-2. [Step 2]
-...
-```
+## Key Patterns
+- **PRD Analysis**: Document parsing → requirement extraction → implementation strategy development
+- **Workflow Generation**: Task decomposition → dependency mapping → structured implementation planning
+- **Multi-Domain Coordination**: Cross-functional expertise → comprehensive implementation strategies
+- **Quality Integration**: Workflow validation → testing strategies → deployment planning
 
 ## Examples
 
+### Systematic PRD Workflow
 ```
-/workflow dev
-/workflow release --version 2.0.0
-/workflow review
-/workflow ci
+/workflow Claudedocs/PRD/feature-spec.md --strategy systematic --depth deep
+# Comprehensive PRD analysis with systematic workflow generation
+# Multi-persona coordination for complete implementation strategy
 ```
 
-## Workflow Output
-
+### Agile Feature Workflow
 ```
-🔄 Workflow: [name]
-
-Step 1/5: Pull latest changes
-✅ Complete
-
-Step 2/5: Install dependencies
-✅ Complete
-
-Step 3/5: Run linter
-⚠️ 2 warnings
-
-Step 4/5: Run tests
-✅ 42 tests passed
-
-Step 5/5: Start dev server
-✅ Running on http://localhost:3000
-
-Summary: 5/5 steps complete
+/workflow "user authentication system" --strategy agile --parallel
+# Agile workflow generation with parallel task coordination
+# Context7 and Magic MCP for framework and UI workflow patterns
 ```
+
+### Enterprise Implementation Planning
+```
+/workflow enterprise-prd.md --strategy enterprise --validate
+# Enterprise-scale workflow with comprehensive validation
+# Security, devops, and architect personas for compliance and scalability
+```
+
+### Cross-Session Workflow Management
+```
+/workflow project-brief.md --depth normal
+# Serena MCP manages cross-session workflow context and persistence
+# Progressive workflow enhancement with memory-driven insights
+```
+
+## Boundaries
+
+**Will:**
+- Generate comprehensive implementation workflows from PRD and feature specifications
+- Coordinate multiple personas and MCP servers for complete implementation strategies
+- Provide cross-session workflow management and progressive enhancement capabilities
+
+**Will Not:**
+- Execute actual implementation tasks beyond workflow planning and strategy
+- Override established development processes without proper analysis and validation
+- Generate workflows without comprehensive requirement analysis and dependency mapping 

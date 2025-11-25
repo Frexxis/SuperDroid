@@ -1,68 +1,94 @@
 ---
-description: Build and compilation workflows
-argument-hint: [--env development|staging|production] [--clean]
+name: build
+description: "Build, compile, and package projects with intelligent error handling and optimization"
+category: utility
+complexity: enhanced
+mcp-servers: [playwright]
+personas: [devops-engineer]
 ---
 
-# /build - Build Workflows
+# /build - Project Building and Packaging
 
-Execute build process for the project:
+## Triggers
+- Project compilation and packaging requests for different environments
+- Build optimization and artifact generation needs
+- Error debugging during build processes
+- Deployment preparation and artifact packaging requirements
 
-## Build Process
+## Usage
+```
+/build [target] [--type dev|prod|test] [--clean] [--optimize] [--verbose]
+```
 
-### 1. Pre-build
-- Clean previous artifacts (if --clean)
-- Verify dependencies
-- Check environment configuration
+## Behavioral Flow
+1. **Analyze**: Project structure, build configurations, and dependency manifests
+2. **Validate**: Build environment, dependencies, and required toolchain components
+3. **Execute**: Build process with real-time monitoring and error detection
+4. **Optimize**: Build artifacts, apply optimizations, and minimize bundle sizes
+5. **Package**: Generate deployment artifacts and comprehensive build reports
 
-### 2. Build
-- Compile/transpile code
-- Bundle assets
-- Generate artifacts
+Key behaviors:
+- Configuration-driven build orchestration with dependency validation
+- Intelligent error analysis with actionable resolution guidance
+- Environment-specific optimization (dev/prod/test configurations)
+- Comprehensive build reporting with timing metrics and artifact analysis
 
-### 3. Post-build
-- Run build validation
-- Report build metrics
-- Prepare for deployment
+## MCP Integration
+- **Playwright MCP**: Auto-activated for build validation and UI testing during builds
+- **DevOps Engineer Persona**: Activated for build optimization and deployment preparation
+- **Enhanced Capabilities**: Build pipeline integration, performance monitoring, artifact validation
 
-## Build Environments
+## Tool Coordination
+- **Bash**: Build system execution and process management
+- **Read**: Configuration analysis and manifest inspection
+- **Grep**: Error parsing and build log analysis
+- **Glob**: Artifact discovery and validation
+- **Write**: Build reports and deployment documentation
 
-| Environment | Optimizations | Source Maps |
-|-------------|---------------|-------------|
-| `development` | None | Full |
-| `staging` | Partial | Limited |
-| `production` | Full | None |
-
-## Common Build Commands
-
-The command will detect and use the appropriate build system:
-
-| Tool | Command |
-|------|---------|
-| npm/yarn | `npm run build` |
-| pnpm | `pnpm build` |
-| make | `make build` |
-| cargo | `cargo build` |
-| go | `go build` |
+## Key Patterns
+- **Environment Builds**: dev/prod/test → appropriate configuration and optimization
+- **Error Analysis**: Build failures → diagnostic analysis and resolution guidance
+- **Optimization**: Artifact analysis → size reduction and performance improvements
+- **Validation**: Build verification → quality gates and deployment readiness
 
 ## Examples
 
+### Standard Project Build
 ```
 /build
-/build --env production
-/build --clean --env staging
+# Builds entire project using default configuration
+# Generates artifacts and comprehensive build report
 ```
 
-## Build Troubleshooting
+### Production Optimization Build
+```
+/build --type prod --clean --optimize
+# Clean production build with advanced optimizations
+# Minification, tree-shaking, and deployment preparation
+```
 
-If build fails:
-1. Check dependency versions
-2. Verify environment variables
-3. Clear caches and rebuild
-4. Check for syntax/type errors
+### Targeted Component Build
+```
+/build frontend --verbose
+# Builds specific project component with detailed output
+# Real-time progress monitoring and diagnostic information
+```
 
-## Output
+### Development Build with Validation
+```
+/build --type dev --validate
+# Development build with Playwright validation
+# UI testing and build verification integration
+```
 
-- Build status (success/failure)
-- Build time
-- Output size
-- Warnings/errors if any
+## Boundaries
+
+**Will:**
+- Execute project build systems using existing configurations
+- Provide comprehensive error analysis and optimization recommendations
+- Generate deployment-ready artifacts with detailed reporting
+
+**Will Not:**
+- Modify build system configuration or create new build scripts
+- Install missing build dependencies or development tools
+- Execute deployment operations beyond artifact preparation

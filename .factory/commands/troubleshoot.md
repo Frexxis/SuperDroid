@@ -1,84 +1,88 @@
 ---
-description: Debugging and issue resolution
-argument-hint: <error or issue description>
+name: troubleshoot
+description: "Diagnose and resolve issues in code, builds, deployments, and system behavior"
+category: utility
+complexity: basic
+mcp-servers: []
+personas: []
 ---
 
-# /troubleshoot - Debugging
+# /troubleshoot - Issue Diagnosis and Resolution
 
-Debug and resolve `$ARGUMENTS`:
+## Triggers
+- Code defects and runtime error investigation requests
+- Build failure analysis and resolution needs
+- Performance issue diagnosis and optimization requirements
+- Deployment problem analysis and system behavior debugging
 
-## Troubleshooting Process
-
-### 1. Understand the Problem
-- What is the expected behavior?
-- What is the actual behavior?
-- When did it start happening?
-- Can it be reproduced?
-
-### 2. Gather Information
-- Error messages
-- Stack traces
-- Logs
-- Environment details
-
-### 3. Investigate
-- Identify potential causes
-- Check recent changes
-- Analyze related code
-- Search for similar issues
-
-### 4. Root Cause Analysis
-- Why did this happen?
-- What is the underlying issue?
-- Are there related problems?
-
-### 5. Resolve
-- Implement fix
-- Verify solution
-- Prevent recurrence
-
-## Investigation Tools
-
-| Tool | Purpose |
-|------|---------|
-| `Read` | Examine source code |
-| `Grep` | Search for patterns |
-| `Execute` | Run diagnostic commands |
-| `WebSearch` | Find similar issues |
-
-## Output Format
-
+## Usage
 ```
-🔍 Troubleshooting: [issue]
-
-## Problem
-[Clear description of the issue]
-
-## Investigation
-[Steps taken to investigate]
-
-## Root Cause
-[Identified cause]
-
-## Solution
-[How to fix it]
-
-## Prevention
-[How to prevent recurrence]
+/troubleshoot [issue] [--type bug|build|performance|deployment] [--trace] [--fix]
 ```
+
+## Behavioral Flow
+1. **Analyze**: Examine issue description and gather relevant system state information
+2. **Investigate**: Identify potential root causes through systematic pattern analysis
+3. **Debug**: Execute structured debugging procedures including log and state examination
+4. **Propose**: Validate solution approaches with impact assessment and risk evaluation
+5. **Resolve**: Apply appropriate fixes and verify resolution effectiveness
+
+Key behaviors:
+- Systematic root cause analysis with hypothesis testing and evidence collection
+- Multi-domain troubleshooting (code, build, performance, deployment)
+- Structured debugging methodologies with comprehensive problem analysis
+- Safe fix application with verification and documentation
+
+## Tool Coordination
+- **Read**: Log analysis and system state examination
+- **Bash**: Diagnostic command execution and system investigation
+- **Grep**: Error pattern detection and log analysis
+- **Write**: Diagnostic reports and resolution documentation
+
+## Key Patterns
+- **Bug Investigation**: Error analysis → stack trace examination → code inspection → fix validation
+- **Build Troubleshooting**: Build log analysis → dependency checking → configuration validation
+- **Performance Diagnosis**: Metrics analysis → bottleneck identification → optimization recommendations
+- **Deployment Issues**: Environment analysis → configuration verification → service validation
 
 ## Examples
 
+### Code Bug Investigation
 ```
-/troubleshoot "TypeError: Cannot read property 'map' of undefined"
-/troubleshoot build failing on CI
-/troubleshoot slow database queries
-/troubleshoot memory leak in production
+/troubleshoot "Null pointer exception in user service" --type bug --trace
+# Systematic analysis of error context and stack traces
+# Identifies root cause and provides targeted fix recommendations
 ```
 
-## Tips
+### Build Failure Analysis
+```
+/troubleshoot "TypeScript compilation errors" --type build --fix
+# Analyzes build logs and TypeScript configuration
+# Automatically applies safe fixes for common compilation issues
+```
 
-- Provide full error messages
-- Include relevant file paths
-- Describe recent changes
-- Share environment details
+### Performance Issue Diagnosis
+```
+/troubleshoot "API response times degraded" --type performance
+# Performance metrics analysis and bottleneck identification
+# Provides optimization recommendations and monitoring guidance
+```
+
+### Deployment Problem Resolution
+```
+/troubleshoot "Service not starting in production" --type deployment --trace
+# Environment and configuration analysis
+# Systematic verification of deployment requirements and dependencies
+```
+
+## Boundaries
+
+**Will:**
+- Execute systematic issue diagnosis using structured debugging methodologies
+- Provide validated solution approaches with comprehensive problem analysis
+- Apply safe fixes with verification and detailed resolution documentation
+
+**Will Not:**
+- Apply risky fixes without proper analysis and user confirmation
+- Modify production systems without explicit permission and safety validation
+- Make architectural changes without understanding full system impact

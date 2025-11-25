@@ -1,89 +1,81 @@
----
-description: Multi-expert business analysis and strategic planning
-argument-hint: <business question or scenario>
----
+# /business-panel - Business Panel Analysis System
 
-# /business-panel - Business Analysis
+```yaml
+---
+command: "/business-panel"
+category: "Analysis & Strategic Planning"  
+purpose: "Multi-expert business analysis with adaptive interaction modes"
+wave-enabled: true
+performance-profile: "complex"
+---
+```
 
-Analyze `$ARGUMENTS` from multiple business perspectives:
+## Overview
+
+AI facilitated panel discussion between renowned business thought leaders analyzing documents through their distinct frameworks and methodologies.
 
 ## Expert Panel
 
-### 📊 Business Analyst
-- Market analysis
-- Competitive landscape
-- Business model evaluation
+### Available Experts
+- **Clayton Christensen**: Disruption Theory, Jobs-to-be-Done
+- **Michael Porter**: Competitive Strategy, Five Forces
+- **Peter Drucker**: Management Philosophy, MBO
+- **Seth Godin**: Marketing Innovation, Tribe Building
+- **W. Chan Kim & Renée Mauborgne**: Blue Ocean Strategy
+- **Jim Collins**: Organizational Excellence, Good to Great
+- **Nassim Nicholas Taleb**: Risk Management, Antifragility
+- **Donella Meadows**: Systems Thinking, Leverage Points
+- **Jean-luc Doumont**: Communication Systems, Structured Clarity
 
-### 💰 Financial Advisor
-- Cost-benefit analysis
-- ROI projections
-- Risk assessment
+## Analysis Modes
 
-### 📈 Growth Strategist
-- Growth opportunities
-- Market expansion
-- Scaling strategies
+### Phase 1: DISCUSSION (Default)
+Collaborative analysis where experts build upon each other's insights through their frameworks.
 
-### 🎯 Product Manager
-- Product-market fit
-- Feature prioritization
-- User value proposition
+### Phase 2: DEBATE
+Adversarial analysis activated when experts disagree or for controversial topics.
 
-### ⚖️ Legal/Compliance
-- Regulatory considerations
-- Risk factors
-- Compliance requirements
+### Phase 3: SOCRATIC INQUIRY
+Question-driven exploration for deep learning and strategic thinking development.
 
-## Analysis Framework
+## Usage
 
-### 1. Situation Analysis
-- Current state
-- Market position
-- Key challenges
-
-### 2. Options Evaluation
-- Available strategies
-- Pros and cons
-- Resource requirements
-
-### 3. Recommendations
-- Prioritized actions
-- Implementation roadmap
-- Success metrics
-
-## Output Format
-
-```
-📊 Business Panel Analysis: [topic]
-
-## Executive Summary
-[Key findings in 2-3 sentences]
-
-## Market Analysis
-[Market insights and trends]
-
-## Financial Perspective
-[Cost, revenue, ROI analysis]
-
-## Growth Opportunities
-[Expansion possibilities]
-
-## Risks & Considerations
-[Potential challenges]
-
-## Recommendations
-1. [Priority action]
-2. [Secondary action]
-3. [Long-term consideration]
-
-## Next Steps
-[Actionable items]
+### Basic Usage
+```bash
+/business-panel [document_path_or_content]
 ```
 
-## Examples
+### Advanced Options
+```bash
+/business-panel [content] --experts "porter,christensen,meadows"
+/business-panel [content] --mode debate
+/business-panel [content] --focus "competitive-analysis"
+/business-panel [content] --synthesis-only
+```
 
-```
-/business-panel "Should we expand to European market?"
-/business-panel pricing strategy for SaaS product
-/business-panel build vs buy decision for auth system
-```
+### Mode Commands
+- `--mode discussion` - Collaborative analysis (default)
+- `--mode debate` - Challenge and stress-test ideas
+- `--mode socratic` - Question-driven exploration
+- `--mode adaptive` - System selects based on content
+
+### Expert Selection
+- `--experts "name1,name2,name3"` - Select specific experts
+- `--focus domain` - Auto-select experts for domain
+- `--all-experts` - Include all 9 experts
+
+### Output Options
+- `--synthesis-only` - Skip detailed analysis, show synthesis
+- `--structured` - Use symbol system for efficiency
+- `--verbose` - Full detailed analysis
+- `--questions` - Focus on strategic questions
+
+## Auto-Persona Activation
+- **Auto-Activates**: Analyzer, Architect, Mentor personas
+- **MCP Integration**: Sequential (primary), Context7 (business patterns)
+- **Tool Orchestration**: Read, Grep, Write, MultiEdit, TodoWrite
+
+## Integration Notes
+- Compatible with all thinking flags (--think, --think-hard, --ultrathink)
+- Supports wave orchestration for comprehensive business analysis
+- Integrates with scribe persona for professional business communication

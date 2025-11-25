@@ -1,77 +1,93 @@
 ---
-description: Load saved session or context
-argument-hint: <session-name>
+name: load
+description: "Session lifecycle management with Serena MCP integration for project context loading"
+category: session
+complexity: standard
+mcp-servers: [serena]
+personas: []
 ---
 
-# /load - Load Session
+# /load - Project Context Loading
 
-Load session or context for `$ARGUMENTS`:
+## Triggers
+- Session initialization and project context loading requests
+- Cross-session persistence and memory retrieval needs
+- Project activation and context management requirements
+- Session lifecycle management and checkpoint loading scenarios
 
-## Session Types
-
-### Project Context
-Load project-specific context and preferences:
+## Usage
 ```
-/load project
-```
-
-### Previous Session
-Resume from a saved session:
-```
-/load session-2024-01-15
+/load [target] [--type project|config|deps|checkpoint] [--refresh] [--analyze]
 ```
 
-### Custom Context
-Load custom context file:
-```
-/load context/feature-auth.md
-```
+## Behavioral Flow
+1. **Initialize**: Establish Serena MCP connection and session context management
+2. **Discover**: Analyze project structure and identify context loading requirements
+3. **Load**: Retrieve project memories, checkpoints, and cross-session persistence data
+4. **Activate**: Establish project context and prepare for development workflow
+5. **Validate**: Ensure loaded context integrity and session readiness
 
-## What Gets Loaded
+Key behaviors:
+- Serena MCP integration for memory management and cross-session persistence
+- Project activation with comprehensive context loading and validation
+- Performance-critical operation with <500ms initialization target
+- Session lifecycle management with checkpoint and memory coordination
 
-- Task progress (TodoWrite state)
-- Project understanding
-- Recent decisions
-- Active goals
-- Custom preferences
+## MCP Integration
+- **Serena MCP**: Mandatory integration for project activation, memory retrieval, and session management
+- **Memory Operations**: Cross-session persistence, checkpoint loading, and context restoration
+- **Performance Critical**: <200ms for core operations, <1s for checkpoint creation
 
-## Session Storage
+## Tool Coordination
+- **activate_project**: Core project activation and context establishment
+- **list_memories/read_memory**: Memory retrieval and session context loading
+- **Read/Grep/Glob**: Project structure analysis and configuration discovery
+- **Write**: Session context documentation and checkpoint creation
 
-Sessions are stored in:
-- `~/.factory/sessions/` (personal)
-- `.factory/sessions/` (project)
+## Key Patterns
+- **Project Activation**: Directory analysis → memory retrieval → context establishment
+- **Session Restoration**: Checkpoint loading → context validation → workflow preparation
+- **Memory Management**: Cross-session persistence → context continuity → development efficiency
+- **Performance Critical**: Fast initialization → immediate productivity → session readiness
 
 ## Examples
 
+### Basic Project Loading
 ```
-/load                     # Load default/last session
-/load project             # Load project context
-/load auth-feature        # Load named session
-/load context/sprint-5.md # Load context file
-```
-
-## Output Format
-
-```
-📂 Loading session: [name]
-
-## Restored Context
-- Project: MyApp
-- Branch: feature/auth
-- Last activity: 2 hours ago
-
-## Active Tasks
-- [x] Setup authentication
-- [ ] Implement login form
-- [ ] Add JWT validation
-
-## Continuing from
-[Last checkpoint description]
-
-Ready to continue!
+/load
+# Loads current directory project context with Serena memory integration
+# Establishes session context and prepares for development workflow
 ```
 
-## Related Commands
+### Specific Project Loading
+```
+/load /path/to/project --type project --analyze
+# Loads specific project with comprehensive analysis
+# Activates project context and retrieves cross-session memories
+```
 
-- `/save` - Save current session
-- `/pm` - Project management mode
+### Checkpoint Restoration
+```
+/load --type checkpoint --checkpoint session_123
+# Restores specific checkpoint with session context
+# Continues previous work session with full context preservation
+```
+
+### Dependency Context Loading
+```
+/load --type deps --refresh
+# Loads dependency context with fresh analysis
+# Updates project understanding and dependency mapping
+```
+
+## Boundaries
+
+**Will:**
+- Load project context using Serena MCP integration for memory management
+- Provide session lifecycle management with cross-session persistence
+- Establish project activation with comprehensive context loading
+
+**Will Not:**
+- Modify project structure or configuration without explicit permission
+- Load context without proper Serena MCP integration and validation
+- Override existing session context without checkpoint preservation

@@ -1,85 +1,165 @@
 ---
-description: Index and analyze repository structure
-argument-hint: [directory] [--depth shallow|deep]
+name: sc:index-repo
+description: Repository Indexing - 94% token reduction (58K → 3K)
 ---
 
-# /index-repo - Repository Indexing
+# Repository Index Creator
 
-Index and analyze the repository:
+📊 **Index Creator activated**
 
-## Indexing Process
+## Problem Statement
 
-### 1. Structure Analysis
-- Directory tree
-- File types distribution
-- Size metrics
+**Before**: Reading all files → 58,000 tokens every session
+**After**: Read PROJECT_INDEX.md → 3,000 tokens (94% reduction)
 
-### 2. Code Analysis
-- Languages detected
-- Frameworks identified
-- Dependencies listed
+## Index Creation Flow
 
-### 3. Pattern Detection
-- Coding conventions
-- Architecture patterns
-- Test structure
+### Phase 1: Analyze Repository Structure
+
+**Parallel analysis** (5 concurrent Glob searches):
+
+1. **Code Structure**
+   ```
+   src/**/*.{ts,py,js,tsx,jsx}
+   lib/**/*.{ts,py,js}
+   superclaude/**/*.py
+   ```
+
+2. **Documentation**
+   ```
+   docs/**/*.md
+   *.md (root level)
+   README*.md
+   ```
+
+3. **Configuration**
+   ```
+   *.toml
+   *.yaml, *.yml
+   *.json (exclude package-lock, node_modules)
+   ```
+
+4. **Tests**
+   ```
+   tests/**/*.{py,ts,js}
+   **/*.test.{ts,py,js}
+   **/*.spec.{ts,py,js}
+   ```
+
+5. **Scripts & Tools**
+   ```
+   scripts/**/*
+   bin/**/*
+   tools/**/*
+   ```
+
+### Phase 2: Extract Metadata
+
+For each file category, extract:
+- Entry points (main.py, index.ts, cli.py)
+- Key modules and exports
+- API surface (public functions/classes)
+- Dependencies (imports, requires)
+
+### Phase 3: Generate Index
+
+Create `PROJECT_INDEX.md` with structure:
+
+```markdown
+# Project Index: {project_name}
+
+Generated: {timestamp}
+
+## 📁 Project Structure
+
+{tree view of main directories}
+
+## 🚀 Entry Points
+
+- CLI: {path} - {description}
+- API: {path} - {description}
+- Tests: {path} - {description}
+
+## 📦 Core Modules
+
+### Module: {name}
+- Path: {path}
+- Exports: {list}
+- Purpose: {1-line description}
+
+## 🔧 Configuration
+
+- {config_file}: {purpose}
+
+## 📚 Documentation
+
+- {doc_file}: {topic}
+
+## 🧪 Test Coverage
+
+- Unit tests: {count} files
+- Integration tests: {count} files
+- Coverage: {percentage}%
+
+## 🔗 Key Dependencies
+
+- {dependency}: {version} - {purpose}
+
+## 📝 Quick Start
+
+1. {setup step}
+2. {run step}
+3. {test step}
+```
+
+### Phase 4: Validation
+
+Quality checks:
+- [ ] All entry points identified?
+- [ ] Core modules documented?
+- [ ] Index size < 5KB?
+- [ ] Human-readable format?
+
+---
+
+## Usage
+
+**Create index**:
+```
+/index-repo
+```
+
+**Update existing index**:
+```
+/index-repo mode=update
+```
+
+**Quick index (skip tests)**:
+```
+/index-repo mode=quick
+```
+
+---
+
+## Token Efficiency
+
+**ROI Calculation**:
+- Index creation: 2,000 tokens (one-time)
+- Index reading: 3,000 tokens (every session)
+- Full codebase read: 58,000 tokens (every session)
+
+**Break-even**: 1 session
+**10 sessions savings**: 550,000 tokens
+**100 sessions savings**: 5,500,000 tokens
+
+---
 
 ## Output Format
 
-```
-📂 Repository Index
+Creates two files:
+1. `PROJECT_INDEX.md` (3KB, human-readable)
+2. `PROJECT_INDEX.json` (10KB, machine-readable)
 
-## Structure
-├── src/           (45 files)
-├── tests/         (23 files)
-├── docs/          (12 files)
-└── config/        (5 files)
+---
 
-## Languages
-- TypeScript: 65%
-- JavaScript: 20%
-- CSS: 10%
-- Other: 5%
-
-## Frameworks
-- React 18.2.0
-- Express 4.18.0
-- Jest 29.0.0
-
-## Key Files
-- Entry: src/index.ts
-- Config: tsconfig.json, package.json
-- Tests: tests/
-
-## Patterns Detected
-- Component-based architecture
-- Service layer pattern
-- Unit + integration tests
-
-## Statistics
-- Total files: 85
-- Lines of code: ~12,500
-- Test coverage: 78%
-```
-
-## Depth Levels
-
-| Depth | Analysis |
-|-------|----------|
-| `shallow` | Structure only |
-| `deep` | Full analysis with patterns |
-
-## Examples
-
-```
-/index-repo
-/index-repo src/ --depth deep
-/index-repo --depth shallow
-```
-
-## Use Cases
-
-- Onboarding to new project
-- Understanding codebase structure
-- Finding patterns and conventions
-- Documentation generation
+**Index Creator is now active.** Run to analyze current repository.

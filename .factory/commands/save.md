@@ -1,69 +1,93 @@
 ---
-description: Save current session or context
-argument-hint: [session-name]
+name: save
+description: "Session lifecycle management with Serena MCP integration for session context persistence"
+category: session
+complexity: standard
+mcp-servers: [serena]
+personas: []
 ---
 
-# /save - Save Session
+# /save - Session Context Persistence
 
-Save current session as `$ARGUMENTS`:
+## Triggers
+- Session completion and project context persistence needs
+- Cross-session memory management and checkpoint creation requests
+- Project understanding preservation and discovery archival scenarios
+- Session lifecycle management and progress tracking requirements
 
-## What Gets Saved
+## Usage
+```
+/save [--type session|learnings|context|all] [--summarize] [--checkpoint]
+```
 
-- Current task progress
-- TodoWrite state
-- Project context
-- Recent decisions
-- Active goals
+## Behavioral Flow
+1. **Analyze**: Examine session progress and identify discoveries worth preserving
+2. **Persist**: Save session context and learnings using Serena MCP memory management
+3. **Checkpoint**: Create recovery points for complex sessions and progress tracking
+4. **Validate**: Ensure session data integrity and cross-session compatibility
+5. **Prepare**: Ready session context for seamless continuation in future sessions
 
-## Save Locations
+Key behaviors:
+- Serena MCP integration for memory management and cross-session persistence
+- Automatic checkpoint creation based on session progress and critical tasks
+- Session context preservation with comprehensive discovery and pattern archival
+- Cross-session learning with accumulated project insights and technical decisions
 
-| Location | Use For |
-|----------|---------|
-| `~/.factory/sessions/` | Personal sessions |
-| `.factory/sessions/` | Project sessions |
+## MCP Integration
+- **Serena MCP**: Mandatory integration for session management, memory operations, and cross-session persistence
+- **Memory Operations**: Session context storage, checkpoint creation, and discovery archival
+- **Performance Critical**: <200ms for memory operations, <1s for checkpoint creation
+
+## Tool Coordination
+- **write_memory/read_memory**: Core session context persistence and retrieval
+- **think_about_collected_information**: Session analysis and discovery identification
+- **summarize_changes**: Session summary generation and progress documentation
+- **TodoRead**: Task completion tracking for automatic checkpoint triggers
+
+## Key Patterns
+- **Session Preservation**: Discovery analysis → memory persistence → checkpoint creation
+- **Cross-Session Learning**: Context accumulation → pattern archival → enhanced project understanding
+- **Progress Tracking**: Task completion → automatic checkpoints → session continuity
+- **Recovery Planning**: State preservation → checkpoint validation → restoration readiness
 
 ## Examples
 
+### Basic Session Save
 ```
-/save                     # Auto-named with timestamp
-/save auth-feature        # Named session
-/save checkpoint-1        # Checkpoint save
-```
-
-## Output Format
-
-```
-💾 Saving session: [name]
-
-## Session Contents
-- Tasks: 5 (2 completed, 1 in progress, 2 pending)
-- Files touched: 12
-- Duration: 45 minutes
-
-## Saved To
-~/.factory/sessions/auth-feature.json
-
-## To Resume
-/load auth-feature
-
-Session saved successfully!
+/save
+# Saves current session discoveries and context to Serena MCP
+# Automatically creates checkpoint if session exceeds 30 minutes
 ```
 
-## Auto-Save
+### Comprehensive Session Checkpoint
+```
+/save --type all --checkpoint
+# Complete session preservation with recovery checkpoint
+# Includes all learnings, context, and progress for session restoration
+```
 
-Sessions are automatically saved:
-- On session end
-- Every 30 minutes
-- Before major operations
+### Session Summary Generation
+```
+/save --summarize
+# Creates session summary with discovery documentation
+# Updates cross-session learning patterns and project insights
+```
 
-## Best Practices
+### Discovery-Only Persistence
+```
+/save --type learnings
+# Saves only new patterns and insights discovered during session
+# Updates project understanding without full session preservation
+```
 
-1. **Name meaningfully** - Describe the work
-2. **Save at checkpoints** - Before risky changes
-3. **Save before breaks** - Resume easily later
-4. **Clean up old sessions** - Remove unneeded saves
+## Boundaries
 
-## Related Commands
+**Will:**
+- Save session context using Serena MCP integration for cross-session persistence
+- Create automatic checkpoints based on session progress and task completion
+- Preserve discoveries and patterns for enhanced project understanding
 
-- `/load` - Load saved session
-- `/pm` - Project management with auto-save
+**Will Not:**
+- Operate without proper Serena MCP integration and memory access
+- Save session data without validation and integrity verification
+- Override existing session context without proper checkpoint preservation

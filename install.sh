@@ -143,6 +143,30 @@ install_droids() {
     print_success "Installed $count droids to $DROIDS_DIR"
 }
 
+install_modes() {
+    print_step "Installing behavioral modes..."
+    
+    local source_dir="$SCRIPT_DIR/.factory/modes"
+    local modes_dir="$FACTORY_DIR/modes"
+    
+    if [ ! -d "$source_dir" ]; then
+        print_warning "Modes source directory not found, skipping..."
+        return 0
+    fi
+    
+    mkdir -p "$modes_dir"
+    
+    local count=0
+    for file in "$source_dir"/*.md; do
+        if [ -f "$file" ]; then
+            cp "$file" "$modes_dir/"
+            ((count++))
+        fi
+    done
+    
+    print_success "Installed $count modes to $modes_dir"
+}
+
 enable_custom_droids() {
     print_step "Checking custom droids setting..."
     
@@ -176,6 +200,7 @@ show_summary() {
     print_info "Installed components:"
     echo "  • Commands: $COMMANDS_DIR"
     echo "  • Droids:   $DROIDS_DIR"
+    echo "  • Modes:    $FACTORY_DIR/modes"
     echo ""
     
     print_info "Next steps:"
@@ -288,8 +313,12 @@ main() {
     print_header "🤖 Phase 3: Installing Droids"
     install_droids
     
-    # Phase 4: Configuration
-    print_header "🔧 Phase 4: Configuration"
+    # Phase 4: Install modes
+    print_header "🎯 Phase 4: Installing Modes"
+    install_modes
+    
+    # Phase 5: Configuration
+    print_header "🔧 Phase 5: Configuration"
     enable_custom_droids
     
     # Summary

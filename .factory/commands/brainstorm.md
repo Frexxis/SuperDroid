@@ -1,67 +1,100 @@
 ---
-description: Structured brainstorming with Socratic questioning for requirements discovery
-argument-hint: <idea or topic>
+name: brainstorm
+description: "Interactive requirements discovery through Socratic dialogue and systematic exploration"
+category: orchestration
+complexity: advanced
+mcp-servers: [sequential, context7, magic, playwright, morphllm, serena]
+personas: [architect, analyzer, frontend, backend, security, devops, project-manager]
 ---
 
-# /brainstorm - Collaborative Discovery
+# /brainstorm - Interactive Requirements Discovery
 
-Explore `$ARGUMENTS` through structured brainstorming:
+> **Context Framework Note**: This file provides behavioral instructions for Factory Droid CLI when users type `/brainstorm` patterns. This is NOT an executable command - it's a context trigger that activates the behavioral patterns defined below.
 
-## Brainstorming Mode
+## Triggers
+- Ambiguous project ideas requiring structured exploration
+- Requirements discovery and specification development needs
+- Concept validation and feasibility assessment requests
+- Cross-session brainstorming and iterative refinement scenarios
 
-When activated, I will:
-
-1. **Ask Discovery Questions** - Probe to uncover hidden requirements
-2. **Avoid Assumptions** - Let you guide the direction
-3. **Collaborate** - Partner in discovery, not dictate solutions
-4. **Synthesize** - Generate structured briefs from insights
-
-## Discovery Framework
-
-### Phase 1: Problem Understanding
-- What problem are we solving?
-- Who are the users/stakeholders?
-- What does success look like?
-
-### Phase 2: Context Gathering
-- What constraints exist?
-- What resources are available?
-- What has been tried before?
-
-### Phase 3: Solution Exploration
-- What are possible approaches?
-- What are the trade-offs?
-- What are the risks?
-
-### Phase 4: Synthesis
-- Summarize key insights
-- Propose next steps
-- Document decisions
-
-## Output Format
-
-After brainstorming, I'll provide:
-
+## Context Trigger Pattern
 ```
-📋 Discovery Summary
-├── Problem Statement: [clear definition]
-├── Key Requirements: [list]
-├── Constraints: [list]
-├── Proposed Approach: [recommendation]
-└── Next Steps: [actionable items]
+/brainstorm [topic/idea] [--strategy systematic|agile|enterprise] [--depth shallow|normal|deep] [--parallel]
 ```
+**Usage**: Type this pattern in your Factory Droid CLI conversation to activate brainstorming behavioral mode with systematic exploration and multi-persona coordination.
+
+## Behavioral Flow
+1. **Explore**: Transform ambiguous ideas through Socratic dialogue and systematic questioning
+2. **Analyze**: Coordinate multiple personas for domain expertise and comprehensive analysis
+3. **Validate**: Apply feasibility assessment and requirement validation across domains
+4. **Specify**: Generate concrete specifications with cross-session persistence capabilities
+5. **Handoff**: Create actionable briefs ready for implementation or further development
+
+Key behaviors:
+- Multi-persona orchestration across architecture, analysis, frontend, backend, security domains
+- Advanced MCP coordination with intelligent routing for specialized analysis
+- Systematic execution with progressive dialogue enhancement and parallel exploration
+- Cross-session persistence with comprehensive requirements discovery documentation
+
+## MCP Integration
+- **Sequential MCP**: Complex multi-step reasoning for systematic exploration and validation
+- **Context7 MCP**: Framework-specific feasibility assessment and pattern analysis
+- **Magic MCP**: UI/UX feasibility and design system integration analysis
+- **Playwright MCP**: User experience validation and interaction pattern testing
+- **Morphllm MCP**: Large-scale content analysis and pattern-based transformation
+- **Serena MCP**: Cross-session persistence, memory management, and project context enhancement
+
+## Tool Coordination
+- **Read/Write/Edit**: Requirements documentation and specification generation
+- **TodoWrite**: Progress tracking for complex multi-phase exploration
+- **Task**: Advanced delegation for parallel exploration paths and multi-agent coordination
+- **WebSearch**: Market research, competitive analysis, and technology validation
+- **sequentialthinking**: Structured reasoning for complex requirements analysis
+
+## Key Patterns
+- **Socratic Dialogue**: Question-driven exploration → systematic requirements discovery
+- **Multi-Domain Analysis**: Cross-functional expertise → comprehensive feasibility assessment
+- **Progressive Coordination**: Systematic exploration → iterative refinement and validation
+- **Specification Generation**: Concrete requirements → actionable implementation briefs
 
 ## Examples
 
+### Systematic Product Discovery
 ```
-/brainstorm building a real-time chat feature
-/brainstorm improving application performance
-/brainstorm new authentication system design
+/brainstorm "AI-powered project management tool" --strategy systematic --depth deep
+# Multi-persona analysis: architect (system design), analyzer (feasibility), project-manager (requirements)
+# Sequential MCP provides structured exploration framework
 ```
 
-## Tips for Effective Brainstorming
+### Agile Feature Exploration
+```
+/brainstorm "real-time collaboration features" --strategy agile --parallel
+# Parallel exploration paths with frontend, backend, and security personas
+# Context7 and Magic MCP for framework and UI pattern analysis
+```
 
-- Be open to exploring different directions
-- Share context freely - more info = better results
-- Challenge assumptions together
-- Focus on problems before solutions
+### Enterprise Solution Validation
+```
+/brainstorm "enterprise data analytics platform" --strategy enterprise --validate
+# Comprehensive validation with security, devops, and architect personas
+# Serena MCP for cross-session persistence and enterprise requirements tracking
+```
+
+### Cross-Session Refinement
+```
+/brainstorm "mobile app monetization strategy" --depth normal
+# Serena MCP manages cross-session context and iterative refinement
+# Progressive dialogue enhancement with memory-driven insights
+```
+
+## Boundaries
+
+**Will:**
+- Transform ambiguous ideas into concrete specifications through systematic exploration
+- Coordinate multiple personas and MCP servers for comprehensive analysis
+- Provide cross-session persistence and progressive dialogue enhancement
+
+**Will Not:**
+- Make implementation decisions without proper requirements discovery
+- Override user vision with prescriptive solutions during exploration phase
+- Bypass systematic exploration for complex multi-domain projects

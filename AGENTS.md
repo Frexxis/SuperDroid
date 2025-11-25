@@ -1,148 +1,311 @@
-# SuperDroid Framework
+# AGENTS.md
 
-This file provides guidance to Factory Droid CLI when working with code in this repository.
+This file provides guidance to Factory Droid CLI (droid.ai/code) when working with code in this repository.
 
-## Core Principles
+## 🐍 Python Environment Rules
 
-### 1. Evidence-Based Development
-**Never guess** - verify with official docs, web search, or codebase analysis before implementation.
+**CRITICAL**: This project uses **UV** for all Python operations. Never use `python -m`, `pip install`, or `python script.py` directly.
 
-### 2. Confidence-First Implementation
-Check confidence BEFORE starting:
-- ≥90%: Proceed with implementation
-- 70-89%: Present alternatives, ask questions
-- <70%: STOP - Request more context
+### Required Commands
 
-### 3. Parallel-First Execution
-Use **Wave → Checkpoint → Wave** pattern for efficiency:
-- Wave 1: [Read files in parallel]
-- Checkpoint: Analyze findings
-- Wave 2: [Edit files in parallel]
+```bash
+# All Python operations must use UV
+uv run pytest                    # Run tests
+uv run pytest tests/pm_agent/   # Run specific tests
+uv pip install package           # Install dependencies
+uv run python script.py          # Execute scripts
+```
 
-### 4. Token Efficiency
-- Simple tasks (typo fix): ~200 tokens
-- Medium tasks (bug fix): ~1,000 tokens
-- Complex tasks (feature): ~2,500 tokens
+## 📂 Project Structure
 
----
+> **⚠️ IMPORTANT**: The `.droid-plugin/` directory and TypeScript plugin system described in older docs **DO NOT EXIST** in v4.1.9.
+> This is planned for v5.0 (see [issue #419](https://github.com/SuperDroid-Org/SuperDroid_Framework/issues/419)).
 
-## Development Workflow
+**Current v4.1.9 Architecture**: Python package with slash commands
+
+```
+# Factory Droid CLI Configuration (v4.1.9)
+.factory/
+├── settings.json        # User settings
+└── commands/            # Slash commands (installed via `superdroid install`)
+    ├── pm.md
+    ├── research.md
+    └── index-repo.md
+
+# Python Package
+src/superdroid/         # Pytest plugin + CLI tools
+├── pytest_plugin.py     # Auto-loaded pytest integration
+├── pm_agent/            # confidence.py, self_check.py, reflexion.py
+├── execution/           # parallel.py, reflection.py, self_correction.py
+└── cli/                 # main.py, doctor.py, install_skill.py
+
+# Plugin Development (planned for v5.0 - see docs/plugin-reorg.md)
+plugins/superdroid/     # Future plugin source (NOT ACTIVE)
+├── agents/              # Agent definitions
+├── commands/            # Command definitions
+├── hooks/               # Hook configurations
+├── scripts/             # Shell scripts
+└── skills/              # Skill implementations
+
+# Project Files
+tests/                   # Python test suite
+docs/                    # Documentation
+scripts/                 # Analysis tools (workflow metrics, A/B testing)
+PLANNING.md              # Architecture, absolute rules
+TASK.md                  # Current tasks
+KNOWLEDGE.md             # Accumulated insights
+```
+
+## 🔧 Development Workflow
 
 ### Essential Commands
 
 ```bash
-# Use SuperDroid slash commands
-/research "topic"           # Deep web research
-/implement "feature"        # Code implementation
-/test                       # Run tests
-/analyze                    # Code analysis
-/brainstorm "idea"          # Structured brainstorming
+# Setup
+make dev              # Install in editable mode with dev dependencies
+make verify           # Verify installation (package, plugin, health)
+
+# Testing
+make test             # Run full test suite
+uv run pytest tests/pm_agent/ -v              # Run specific directory
+uv run pytest tests/test_file.py -v           # Run specific file
+uv run pytest -m confidence_check             # Run by marker
+uv run pytest --cov=superdroid               # With coverage
+
+# Code Quality
+make lint             # Run ruff linter
+make format           # Format code with ruff
+make doctor           # Health check diagnostics
+
+# Plugin Packaging
+make build-plugin            # Build plugin artefacts into dist/
+make sync-plugin-repo        # Sync artefacts into ../SuperDroid_Plugin
+
+# Maintenance
+make clean            # Remove build artifacts
 ```
 
-### Git Workflow
+## 📦 Core Architecture
+
+### Pytest Plugin (Auto-loaded)
+
+Registered via `pyproject.toml` entry point, automatically available after installation.
+
+**Fixtures**: `confidence_checker`, `self_check_protocol`, `reflexion_pattern`, `token_budget`, `pm_context`
+
+**Auto-markers**:
+- Tests in `/unit/` → `@pytest.mark.unit`
+- Tests in `/integration/` → `@pytest.mark.integration`
+
+**Custom markers**: `@pytest.mark.confidence_check`, `@pytest.mark.self_check`, `@pytest.mark.reflexion`
+
+### PM Agent - Three Core Patterns
+
+**1. ConfidenceChecker** (src/superdroid/pm_agent/confidence.py)
+- Pre-execution confidence assessment: ≥90% required, 70-89% present alternatives, <70% ask questions
+- Prevents wrong-direction work, ROI: 25-250x token savings
+
+**2. SelfCheckProtocol** (src/superdroid/pm_agent/self_check.py)
+- Post-implementation evidence-based validation
+- No speculation - verify with tests/docs
+
+**3. ReflexionPattern** (src/superdroid/pm_agent/reflexion.py)
+- Error learning and prevention
+- Cross-session pattern matching
+
+### Parallel Execution
+
+**Wave → Checkpoint → Wave pattern** (src/superdroid/execution/parallel.py):
+- 3.5x faster than sequential execution
+- Automatic dependency analysis
+- Example: [Read files in parallel] → Analyze → [Edit files in parallel]
+
+### TypeScript Plugins (Planned for v5.0)
+
+> **⚠️ NOT IMPLEMENTED**: The TypeScript plugin system described below does not exist in v4.1.9.
+> This is planned for v5.0. See [issue #419](https://github.com/SuperDroid-Org/SuperDroid_Framework/issues/419) and `docs/plugin-reorg.md`.
+
+**Current v4.1.9 Commands** (slash commands, not plugins):
+- Install via: `pipx install superdroid && superdroid install`
+- Commands installed to: `~/.factory/commands/`
+- Available commands: `/pm`, `/research`, `/index-repo` (and others)
+
+**Planned Plugin Architecture** (v5.0 - NOT YET AVAILABLE):
+- Plugin source will live under `plugins/superdroid/`
+- `make build-plugin` will render `.droid-plugin/*` manifests
+- Project-local detection via `.droid-plugin/plugin.json`
+- Marketplace distribution support
+
+## 🧪 Testing with PM Agent
+
+### Example Test with Markers
+
+```python
+@pytest.mark.confidence_check
+def test_feature(confidence_checker):
+    """Pre-execution confidence check - skips if < 70%"""
+    context = {"test_name": "test_feature", "has_official_docs": True}
+    assert confidence_checker.assess(context) >= 0.7
+
+@pytest.mark.self_check
+def test_implementation(self_check_protocol):
+    """Post-implementation validation with evidence"""
+    implementation = {"code": "...", "tests": [...]}
+    passed, issues = self_check_protocol.validate(implementation)
+    assert passed, f"Validation failed: {issues}"
+
+@pytest.mark.reflexion
+def test_error_learning(reflexion_pattern):
+    """If test fails, reflexion records for future prevention"""
+    pass
+
+@pytest.mark.complexity("medium")  # simple: 200, medium: 1000, complex: 2500
+def test_with_budget(token_budget):
+    """Token budget allocation"""
+    assert token_budget.limit == 1000
+```
+
+## 🌿 Git Workflow
+
+**Branch structure**: `master` (production) ← `integration` (testing) ← `feature/*`, `fix/*`, `docs/*`
+
+**Standard workflow**:
+1. Create branch from `integration`: `git checkout -b feature/your-feature`
+2. Develop with tests: `uv run pytest`
+3. Commit: `git commit -m "feat: description"` (conventional commits)
+4. Merge to `integration` → validate → merge to `master`
+
+**Current branch**: See git status in session start output
+
+### Parallel Development with Git Worktrees
+
+**CRITICAL**: When running multiple Factory Droid CLI sessions in parallel, use `git worktree` to avoid conflicts.
 
 ```bash
-# Branch naming
-feature/your-feature
-fix/bug-description
-docs/documentation-update
+# Create worktree for integration branch
+cd ~/github/SuperDroid_Framework
+git worktree add ../SuperDroid_Framework-integration integration
 
-# Commit convention
-feat: add new feature
-fix: resolve bug
-docs: update documentation
-refactor: code improvement
-test: add tests
+# Create worktree for feature branch
+git worktree add ../SuperDroid_Framework-feature feature/pm-agent
 ```
 
----
+**Benefits**:
+- Run Factory Droid CLI sessions on different branches simultaneously
+- No branch switching conflicts
+- Independent working directories
+- Parallel development without state corruption
 
-## Project Patterns
+**Usage**:
+- Session A: Open `~/github/SuperDroid_Framework/` (current branch)
+- Session B: Open `~/github/SuperDroid_Framework-integration/` (integration)
+- Session C: Open `~/github/SuperDroid_Framework-feature/` (feature branch)
 
-### Code Style
-- Follow existing patterns in the codebase
-- Use consistent naming conventions
-- Add comments only when necessary
-- Prefer readability over cleverness
-
-### Testing
-- Write tests for new features
-- Run existing tests before committing
-- Fix broken tests immediately
-
-### Documentation
-- Update docs when adding features
-- Keep README current
-- Document breaking changes
-
----
-
-## Droids (Subagents)
-
-SuperDroid includes 16 specialized droids for delegation:
-
-| Droid | Use Case |
-|-------|----------|
-| `pm-agent` | Project orchestration, PDCA cycles |
-| `security-engineer` | Security audits, vulnerability checks |
-| `frontend-architect` | UI components, accessibility |
-| `backend-architect` | APIs, server logic |
-| `deep-research-agent` | Autonomous research |
-| `quality-engineer` | Testing, QA |
-
-### Using Droids
-
-```
-"Use the security-engineer droid to audit authentication"
-"Delegate to deep-research-agent for market analysis"
+**Cleanup**:
+```bash
+git worktree remove ../SuperDroid_Framework-integration
 ```
 
----
+## 📝 Key Documentation Files
 
-## Best Practices
+**PLANNING.md** - Architecture, design principles, absolute rules
+**TASK.md** - Current tasks and priorities
+**KNOWLEDGE.md** - Accumulated insights and troubleshooting
 
-### Before Implementation
-1. Read relevant files first
-2. Check for existing patterns
-3. Verify requirements are clear
-4. Assess confidence level
+Additional docs in `docs/user-guide/`, `docs/developer-guide/`, `docs/reference/`
 
-### During Implementation
-1. Use TodoWrite for tracking
-2. Make atomic changes
-3. Test incrementally
-4. Document decisions
+## 💡 Core Development Principles
 
-### After Implementation
-1. Run tests
-2. Review changes
-3. Update documentation
-4. Clean up temporary files
+### 1. Evidence-Based Development
+**Never guess** - verify with official docs (Context7 MCP, WebFetch, WebSearch) before implementation.
 
----
+### 2. Confidence-First Implementation
+Check confidence BEFORE starting: ≥90% proceed, 70-89% present alternatives, <70% ask questions.
 
-## MCP Integration (Optional)
+### 3. Parallel-First Execution
+Use **Wave → Checkpoint → Wave** pattern (3.5x faster). Example: `[Read files in parallel]` → Analyze → `[Edit files in parallel]`
 
-For enhanced capabilities, configure these MCP servers:
+### 4. Token Efficiency
+- Simple (typo): 200 tokens
+- Medium (bug fix): 1,000 tokens
+- Complex (feature): 2,500 tokens
+- Confidence check ROI: spend 100-200 to save 5,000-50,000
 
-- **Tavily**: Web search for `/research` command
-- **Context7**: Official documentation lookup
-- **Playwright**: Browser automation for testing
+## 🔧 MCP Server Integration
 
-Configure in `~/.factory/mcp.json`.
+Integrates with multiple MCP servers via **airis-mcp-gateway**.
 
----
+**High Priority**:
+- **Tavily**: Web search (Deep Research)
+- **Context7**: Official documentation (prevent hallucination)
+- **Sequential**: Token-efficient reasoning (30-50% reduction)
+- **Serena**: Session persistence
+- **Mindbase**: Cross-session learning
 
-## Troubleshooting
+**Optional**: Playwright (browser automation), Magic (UI components), Chrome DevTools (performance)
 
-### Common Issues
+**Usage**: TypeScript plugins and Python pytest plugin can call MCP servers. Always prefer MCP tools over speculation for documentation/research.
 
-1. **Commands not working**: Restart Droid CLI after installation
-2. **Droids not found**: Check `~/.factory/droids/` directory
-3. **MCP errors**: Verify server configuration
+## 🚀 Development & Installation
 
-### Getting Help
+### Current Installation Method (v4.1.9)
 
-- Use `/help` command
-- Check docs/ directory
-- Open GitHub issue
+**Standard Installation**:
+```bash
+# Option 1: pipx (recommended)
+pipx install superdroid
+superdroid install
+
+# Option 2: Direct from repo
+git clone https://github.com/SuperDroid-Org/SuperDroid_Framework.git
+cd SuperDroid_Framework
+./install.sh
+```
+
+**Development Mode**:
+```bash
+# Install in editable mode
+make dev
+
+# Run tests
+make test
+
+# Verify installation
+make verify
+```
+
+### Plugin System (Planned for v5.0 - NOT AVAILABLE)
+
+> **⚠️ IMPORTANT**: The plugin system described in older documentation **does not exist** in v4.1.9.
+> These features are planned for v5.0 (see [issue #419](https://github.com/SuperDroid-Org/SuperDroid_Framework/issues/419)).
+
+**What Does NOT Work** (yet):
+- ❌ `.droid-plugin/` directory auto-detection
+- ❌ `/plugin marketplace add` commands
+- ❌ `/plugin install superdroid`
+- ❌ `make build-plugin` (planned but not functional)
+- ❌ Project-local plugin detection
+
+**Future Plans** (v5.0):
+- Plugin marketplace distribution
+- TypeScript-based plugin architecture
+- Auto-detection via `.droid-plugin/plugin.json`
+- Build workflow via `make build-plugin`
+
+See `docs/plugin-reorg.md` and `docs/next-refactor-plan.md` for implementation plans.
+
+## 📊 Package Information
+
+**Package name**: `superdroid`
+**Version**: 0.4.0
+**Python**: >=3.10
+**Build system**: hatchling (PEP 517)
+
+**Entry points**:
+- CLI: `superdroid` command
+- Pytest plugin: Auto-loaded as `superdroid`
+
+**Dependencies**:
+- pytest>=7.0.0
+- click>=8.0.0
+- rich>=13.0.0

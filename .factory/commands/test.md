@@ -1,76 +1,93 @@
 ---
-description: Test generation and execution workflows
-argument-hint: <feature or file> [--type unit|integration|e2e] [--coverage]
+name: test
+description: "Execute tests with coverage analysis and automated quality reporting"
+category: utility
+complexity: enhanced
+mcp-servers: [playwright]
+personas: [qa-specialist]
 ---
 
-# /test - Testing Workflows
+# /test - Testing and Quality Assurance
 
-Generate and run tests for `$ARGUMENTS`:
+## Triggers
+- Test execution requests for unit, integration, or e2e tests
+- Coverage analysis and quality gate validation needs
+- Continuous testing and watch mode scenarios
+- Test failure analysis and debugging requirements
 
-## Testing Approach
-
-### 1. Analyze
-- Identify testable components
-- Detect existing test patterns
-- Find testing framework in use
-
-### 2. Generate
-- Create test cases based on functionality
-- Follow existing test conventions
-- Include edge cases and error scenarios
-
-### 3. Execute
-- Run generated tests
-- Verify all pass
-- Report coverage if requested
-
-## Test Types
-
-| Type | Purpose | Tools |
-|------|---------|-------|
-| `unit` | Individual functions/components | Jest, pytest, etc. |
-| `integration` | Component interactions | Testing library |
-| `e2e` | Full user workflows | Playwright, Cypress |
-
-## Test Structure
-
+## Usage
 ```
-describe('Feature', () => {
-  it('should handle normal case', () => {});
-  it('should handle edge case', () => {});
-  it('should handle error case', () => {});
-});
+/test [target] [--type unit|integration|e2e|all] [--coverage] [--watch] [--fix]
 ```
 
-## Best Practices
+## Behavioral Flow
+1. **Discover**: Categorize available tests using runner patterns and conventions
+2. **Configure**: Set up appropriate test environment and execution parameters
+3. **Execute**: Run tests with monitoring and real-time progress tracking
+4. **Analyze**: Generate coverage reports and failure diagnostics
+5. **Report**: Provide actionable recommendations and quality metrics
 
-1. **Test behavior, not implementation**
-2. **One assertion per test when possible**
-3. **Use descriptive test names**
-4. **Mock external dependencies**
-5. **Test edge cases and errors**
+Key behaviors:
+- Auto-detect test framework and configuration
+- Generate comprehensive coverage reports with metrics
+- Activate Playwright MCP for e2e browser testing
+- Provide intelligent test failure analysis
+- Support continuous watch mode for development
+
+## MCP Integration
+- **Playwright MCP**: Auto-activated for `--type e2e` browser testing
+- **QA Specialist Persona**: Activated for test analysis and quality assessment
+- **Enhanced Capabilities**: Cross-browser testing, visual validation, performance metrics
+
+## Tool Coordination
+- **Bash**: Test runner execution and environment management
+- **Glob**: Test discovery and file pattern matching
+- **Grep**: Result parsing and failure analysis
+- **Write**: Coverage reports and test summaries
+
+## Key Patterns
+- **Test Discovery**: Pattern-based categorization → appropriate runner selection
+- **Coverage Analysis**: Execution metrics → comprehensive coverage reporting
+- **E2E Testing**: Browser automation → cross-platform validation
+- **Watch Mode**: File monitoring → continuous test execution
 
 ## Examples
 
+### Basic Test Execution
 ```
-/test user authentication --type unit
-/test payment flow --type integration
-/test checkout process --type e2e --coverage
-/test src/components/Button.tsx
+/test
+# Discovers and runs all tests with standard configuration
+# Generates pass/fail summary and basic coverage
 ```
 
-## Coverage Guidelines
+### Targeted Coverage Analysis
+```
+/test src/components --type unit --coverage
+# Unit tests for specific directory with detailed coverage metrics
+```
 
-| Coverage | Quality |
-|:--------:|---------|
-| < 50% | Needs improvement |
-| 50-70% | Acceptable |
-| 70-85% | Good |
-| > 85% | Excellent |
+### Browser Testing
+```
+/test --type e2e
+# Activates Playwright MCP for comprehensive browser testing
+# Cross-browser compatibility and visual validation
+```
 
-## Output
+### Development Watch Mode
+```
+/test --watch --fix
+# Continuous testing with automatic simple failure fixes
+# Real-time feedback during development
+```
 
-- Generated test files
-- Test execution results
-- Coverage report (if --coverage)
-- Recommendations for improvement
+## Boundaries
+
+**Will:**
+- Execute existing test suites using project's configured test runner
+- Generate coverage reports and quality metrics
+- Provide intelligent test failure analysis with actionable recommendations
+
+**Will Not:**
+- Generate test cases or modify test framework configuration
+- Execute tests requiring external services without proper setup
+- Make destructive changes to test files without explicit permission

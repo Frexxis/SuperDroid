@@ -1,59 +1,103 @@
 ---
+name: research
 description: Deep web research with adaptive planning and intelligent search
-argument-hint: <query> [--depth quick|standard|deep|exhaustive]
+category: command
+complexity: advanced
+mcp-servers: [tavily, sequential, playwright, serena]
+personas: [deep-research-agent]
 ---
 
 # /research - Deep Research Command
 
-Perform comprehensive web research on `$ARGUMENTS` with the following approach:
+> **Context Framework Note**: This command activates comprehensive research capabilities with adaptive planning, multi-hop reasoning, and evidence-based synthesis.
 
-## Research Process
+## Triggers
+- Research questions beyond knowledge cutoff
+- Complex research questions
+- Current events and real-time information
+- Academic or technical research requirements
+- Market analysis and competitive intelligence
+
+## Context Trigger Pattern
+```
+/research "[query]" [--depth quick|standard|deep|exhaustive] [--strategy planning|intent|unified]
+```
+
+## Behavioral Flow
 
 ### 1. Understand (5-10% effort)
 - Assess query complexity and ambiguity
 - Identify required information types
+- Determine resource requirements
 - Define success criteria
 
 ### 2. Plan (10-15% effort)
-- Decompose research question into sub-queries
+- Select planning strategy based on complexity
 - Identify parallelization opportunities
+- Generate research question decomposition
 - Create investigation milestones
 
-### 3. Execute (50-60% effort)
-- **Parallel searches**: Batch similar queries together
-- **Multi-hop exploration**: Follow entity and concept chains
-- **Evidence collection**: Track sources and confidence levels
+### 3. TodoWrite (5% effort)
+- Create adaptive task hierarchy
+- Scale tasks to query complexity (3-15 tasks)
+- Establish task dependencies
+- Set progress tracking
 
-### 4. Validate (10-15% effort)
+### 4. Execute (50-60% effort)
+- **Parallel-first searches**: Always batch similar queries
+- **Smart extraction**: Route by content complexity
+- **Multi-hop exploration**: Follow entity and concept chains
+- **Evidence collection**: Track sources and confidence
+
+### 5. Track (Continuous)
+- Monitor TodoWrite progress
+- Update confidence scores
+- Log successful patterns
+- Identify information gaps
+
+### 6. Validate (10-15% effort)
 - Verify evidence chains
 - Check source credibility
 - Resolve contradictions
 - Ensure completeness
 
-## Depth Levels
+## Key Patterns
 
-| Depth | Sources | Time | Best For |
-|:-----:|:-------:|:----:|----------|
-| **quick** | 5-10 | ~2min | Quick facts |
-| **standard** | 10-20 | ~5min | General research (default) |
-| **deep** | 20-40 | ~8min | Comprehensive analysis |
-| **exhaustive** | 40+ | ~10min | Academic-level research |
+### Parallel Execution
+- Batch all independent searches
+- Run concurrent extractions
+- Only sequential for dependencies
 
-## Output Format
+### Evidence Management
+- Track search results
+- Provide clear citations when available
+- Note uncertainties explicitly
 
-Provide research results with:
-1. **Executive Summary** - Key findings in 2-3 sentences
-2. **Detailed Findings** - Organized by topic/theme
-3. **Sources** - List all references with URLs
-4. **Confidence Level** - Overall confidence in findings
-5. **Knowledge Gaps** - What couldn't be determined
+### Adaptive Depth
+- **Quick**: Basic search, 1 hop, summary output
+- **Standard**: Extended search, 2-3 hops, structured report
+- **Deep**: Comprehensive search, 3-4 hops, detailed analysis
+- **Exhaustive**: Maximum depth, 5 hops, complete investigation
 
-## Example Usage
+## MCP Integration
+- **Tavily**: Primary search and extraction engine
+- **Sequential**: Complex reasoning and synthesis
+- **Playwright**: JavaScript-heavy content extraction
+- **Serena**: Research session persistence
 
+## Output Standards
+- Save reports to `factorydocs/research_[topic]_[timestamp].md`
+- Include executive summary
+- Provide confidence levels
+- List all sources with citations
+
+## Examples
 ```
 /research "latest developments in quantum computing 2024"
 /research "competitive analysis of AI coding assistants" --depth deep
-/research "best practices for distributed systems"
+/research "best practices for distributed systems" --strategy unified
 ```
 
-Use WebSearch and FetchUrl tools for gathering information. Always cite sources.
+## Boundaries
+**Will**: Current information, intelligent search, evidence-based analysis
+**Won't**: Make claims without sources, skip validation, access restricted content
