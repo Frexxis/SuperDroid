@@ -33,7 +33,7 @@ def run_doctor(verbose: bool = False) -> Dict[str, Any]:
     checks.append(check)
     
     # Check 2: Commands installed
-    commands_dir = factory_dir / "commands"
+    commands_dir = factory_dir / "commands" / "sd"
     command_count = len(list(commands_dir.glob("*.md"))) if commands_dir.exists() else 0
     check = {
         "name": f"Commands installed ({command_count}/30)",

@@ -51,7 +51,7 @@ def list_available_commands() -> List[str]:
 
 def list_installed_commands() -> Set[str]:
     """List commands currently installed in Factory CLI."""
-    factory_commands = Path.home() / ".factory" / "commands"
+    factory_commands = Path.home() / ".factory" / "commands" / "sd"
     if factory_commands.exists():
         return {f.stem for f in factory_commands.glob("*.md")}
     return set()
@@ -65,14 +65,14 @@ def install_commands(
     Install SuperDroid commands to Factory CLI.
     
     Args:
-        target_path: Directory to install commands (default: ~/.factory/commands)
+        target_path: Directory to install commands (default: ~/.factory/commands/sd)
         force: Overwrite existing commands
         
     Returns:
         Tuple of (success, message)
     """
     if target_path is None:
-        target_path = Path.home() / ".factory" / "commands"
+        target_path = Path.home() / ".factory" / "commands" / "sd"
     
     target_path = Path(target_path).expanduser()
     target_path.mkdir(parents=True, exist_ok=True)

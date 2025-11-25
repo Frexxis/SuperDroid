@@ -5,7 +5,7 @@
 ### **Transform Factory Droid CLI into a Structured Development Platform**
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-1.0.1-blue" alt="Version">
+  <img src="https://img.shields.io/badge/version-1.0.2-blue" alt="Version">
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License">
   <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome">
   <img src="https://img.shields.io/badge/Factory_Droid-CLI-purple" alt="Factory Droid CLI">
@@ -101,7 +101,8 @@ git clone https://github.com/Frexxis/SuperDroid.git
 cd SuperDroid
 
 # Copy commands
-cp -r .factory/commands/* ~/.factory/commands/
+mkdir -p ~/.factory/commands/sd
+cp -r .factory/commands/* ~/.factory/commands/sd/
 
 # Copy droids
 cp -r .factory/droids/* ~/.factory/droids/
@@ -113,15 +114,15 @@ cp -r .factory/modes/* ~/.factory/modes/
 After installation:
 1. **Restart Droid CLI** to load new commands
 2. **Enable Custom Droids**: `/settings` → Custom Droids → Enable
-3. **Verify**: Type `/help` to see all commands
+3. **Verify**: Type `/sd:help` to see all commands
 
 ### **Available Commands After Installation**
 
-- `/research` - Deep web research (enhanced with Tavily MCP)
-- `/brainstorm` - Structured brainstorming
-- `/implement` - Code implementation
-- `/test` - Testing workflows
-- `/pm` - Project management
+- `/sd:research` - Deep web research (enhanced with Tavily MCP)
+- `/sd:brainstorm` - Structured brainstorming
+- `/sd:implement` - Code implementation
+- `/sd:test` - Testing workflows
+- `/sd:pm` - Project management
 - `/sd` - Show all 30 available commands
 
 ### **Enhanced Performance (Optional MCPs)**
@@ -237,13 +238,13 @@ SuperDroid includes comprehensive Deep Research capabilities:
 
 ```bash
 # Basic research
-/research "latest AI developments 2024"
+/sd:research "latest AI developments 2024"
 
 # Deep research
-/research "quantum computing breakthroughs" --depth exhaustive
+/sd:research "quantum computing breakthroughs" --depth exhaustive
 
 # Domain-filtered (with Tavily MCP)
-/research "React patterns" --domains reactjs.org,github.com
+/sd:research "React patterns" --domains reactjs.org,github.com
 ```
 
 ### **Research Depth Levels**
@@ -301,49 +302,49 @@ SuperDroid includes comprehensive Deep Research capabilities:
 <summary><b>Click to expand full command list</b></summary>
 
 ### 🧠 Planning & Design (4)
-- `/brainstorm` - Structured brainstorming
-- `/design` - System architecture
-- `/estimate` - Time/effort estimation
-- `/spec-panel` - Specification analysis
+- `/sd:brainstorm` - Structured brainstorming
+- `/sd:design` - System architecture
+- `/sd:estimate` - Time/effort estimation
+- `/sd:spec-panel` - Specification analysis
 
 ### 💻 Development (5)
-- `/implement` - Code implementation
-- `/build` - Build workflows
-- `/improve` - Code improvements
-- `/cleanup` - Refactoring
-- `/explain` - Code explanation
+- `/sd:implement` - Code implementation
+- `/sd:build` - Build workflows
+- `/sd:improve` - Code improvements
+- `/sd:cleanup` - Refactoring
+- `/sd:explain` - Code explanation
 
 ### 🧪 Testing & Quality (4)
-- `/test` - Test generation
-- `/analyze` - Code analysis
-- `/troubleshoot` - Debugging
-- `/reflect` - Retrospectives
+- `/sd:test` - Test generation
+- `/sd:analyze` - Code analysis
+- `/sd:troubleshoot` - Debugging
+- `/sd:reflect` - Retrospectives
 
 ### 📚 Documentation (2)
-- `/document` - Doc generation
-- `/help` - Command help
+- `/sd:document` - Doc generation
+- `/sd:help` - Command help
 
 ### 🔧 Version Control (1)
-- `/git` - Git operations
+- `/sd:git` - Git operations
 
 ### 📊 Project Management (3)
-- `/pm` - Project management
-- `/task` - Task tracking
-- `/workflow` - Workflow automation
+- `/sd:pm` - Project management
+- `/sd:task` - Task tracking
+- `/sd:workflow` - Workflow automation
 
 ### 🔍 Research & Analysis (2)
-- `/research` - Deep web research
-- `/business-panel` - Business analysis
+- `/sd:research` - Deep web research
+- `/sd:business-panel` - Business analysis
 
 ### 🎯 Utilities (9)
-- `/agent` - Invoke droids
+- `/sd:agent` - Invoke droids
 - `/index-repo` - Repository indexing
-- `/index` - Quick indexing
-- `/recommend` - Command recommendations
-- `/select-tool` - Tool selection
-- `/spawn` - Parallel tasks
-- `/load` - Load sessions
-- `/save` - Save sessions
+- `/sd:index` - Quick indexing
+- `/sd:recommend` - Command recommendations
+- `/sd:select-tool` - Tool selection
+- `/sd:spawn` - Parallel tasks
+- `/sd:load` - Load sessions
+- `/sd:save` - Save sessions
 - `/sd` - Show all commands
 
 [**📖 View Detailed Command Reference →**](docs/reference/commands-list.md)

@@ -27,8 +27,8 @@ def main():
 @main.command()
 @click.option(
     "--target",
-    default="~/.factory/commands",
-    help="Installation directory (default: ~/.factory/commands)",
+    default="~/.factory/commands/sd",
+    help="Installation directory (default: ~/.factory/commands/sd)",
 )
 @click.option(
     "--force",
@@ -45,8 +45,8 @@ def install(target: str, force: bool, list_only: bool):
     """
     Install SuperDroid commands to Factory Droid CLI
 
-    Installs all slash commands (/research, /implement, etc.) to your
-    ~/.factory/commands directory so you can use them in Droid CLI.
+    Installs all slash commands (/sd:research, /sd:implement, etc.) to your
+    ~/.factory/commands/sd directory so you can use them as /sd:command in Droid CLI.
 
     Examples:
         superdroid install
@@ -99,7 +99,7 @@ def install(target: str, force: bool, list_only: bool):
     click.echo("Next steps:")
     click.echo("  1. Restart Droid CLI to load new commands")
     click.echo("  2. Enable custom droids: /settings → Custom Droids → On")
-    click.echo("  3. Try: /help")
+    click.echo("  3. Try: /sd:help")
 
 
 @main.command()

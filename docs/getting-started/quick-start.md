@@ -28,7 +28,8 @@ git clone https://github.com/Frexxis/SuperDroid.git
 cd SuperDroid
 
 # Copy commands to Factory
-cp -r .factory/commands/* ~/.factory/commands/
+mkdir -p ~/.factory/commands/sd
+cp -r .factory/commands/* ~/.factory/commands/sd/
 
 # Copy droids to Factory
 cp -r .factory/droids/* ~/.factory/droids/

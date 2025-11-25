@@ -11,9 +11,9 @@ const fs = require('fs');
 const path = require('path');
 const os = require('os');
 
-const VERSION = '1.0.1';
+const VERSION = '1.0.2';
 const FACTORY_DIR = path.join(os.homedir(), '.factory');
-const COMMANDS_DIR = path.join(FACTORY_DIR, 'commands');
+const COMMANDS_DIR = path.join(FACTORY_DIR, 'commands', 'sd');
 const DROIDS_DIR = path.join(FACTORY_DIR, 'droids');
 const MODES_DIR = path.join(FACTORY_DIR, 'modes');
 
@@ -94,7 +94,7 @@ function install(force = false) {
     console.log('Next steps:');
     console.log('  1. Restart Droid CLI to load new commands');
     console.log('  2. Enable custom droids: /settings → Custom Droids → On');
-    console.log('  3. Try: /help\n');
+    console.log('  3. Try: /sd:help\n');
 }
 
 function list() {
