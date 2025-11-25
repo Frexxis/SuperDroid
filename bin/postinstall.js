@@ -11,7 +11,7 @@ const path = require('path');
 const os = require('os');
 
 const FACTORY_DIR = path.join(os.homedir(), '.factory');
-const COMMANDS_DIR = path.join(FACTORY_DIR, 'commands', 'sd');
+const COMMANDS_DIR = path.join(FACTORY_DIR, 'commands');
 const DROIDS_DIR = path.join(FACTORY_DIR, 'droids');
 const MODES_DIR = path.join(FACTORY_DIR, 'modes');
 
@@ -61,7 +61,7 @@ try {
     console.log('\nNext steps:');
     console.log('  1. Restart Droid CLI');
     console.log('  2. Enable custom droids: /settings → Custom Droids → On');
-    console.log('  3. Try: /sd:help\n');
+    console.log('  3. Try: /sd-help\n');
 } catch (err) {
     console.log('⚠️  Auto-install skipped. Run "superdroid install" manually.\n');
 }

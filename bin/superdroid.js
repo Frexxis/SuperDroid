@@ -11,9 +11,9 @@ const fs = require('fs');
 const path = require('path');
 const os = require('os');
 
-const VERSION = '1.0.2';
+const VERSION = '1.0.3';
 const FACTORY_DIR = path.join(os.homedir(), '.factory');
-const COMMANDS_DIR = path.join(FACTORY_DIR, 'commands', 'sd');
+const COMMANDS_DIR = path.join(FACTORY_DIR, 'commands');
 const DROIDS_DIR = path.join(FACTORY_DIR, 'droids');
 const MODES_DIR = path.join(FACTORY_DIR, 'modes');
 
@@ -94,7 +94,7 @@ function install(force = false) {
     console.log('Next steps:');
     console.log('  1. Restart Droid CLI to load new commands');
     console.log('  2. Enable custom droids: /settings → Custom Droids → On');
-    console.log('  3. Try: /sd:help\n');
+    console.log('  3. Try: /sd-help\n');
 }
 
 function list() {
@@ -110,7 +110,7 @@ function list() {
         .map(f => f.replace('.md', ''));
     
     const installed = fs.existsSync(COMMANDS_DIR) 
-        ? new Set(fs.readdirSync(COMMANDS_DIR).filter(f => f.endsWith('.md')).map(f => f.replace('.md', '')))
+        ? new Set(fs.readdirSync(COMMANDS_DIR).filter(f => f.startsWith('sd-') && f.endsWith('.md')).map(f => f.replace('.md', '')))
         : new Set();
     
     for (const cmd of available.sort()) {
@@ -138,7 +138,7 @@ function doctor() {
     
     // Check commands
     const cmdCount = fs.existsSync(COMMANDS_DIR) 
-        ? fs.readdirSync(COMMANDS_DIR).filter(f => f.endsWith('.md')).length 
+        ? fs.readdirSync(COMMANDS_DIR).filter(f => f.startsWith('sd-') && f.endsWith('.md')).length 
         : 0;
     if (cmdCount >= 25) {
         console.log(`✅ Commands installed (${cmdCount}/30)`);

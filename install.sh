@@ -30,7 +30,7 @@ readonly NC='\033[0m'
 # Paths
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 FACTORY_DIR="$HOME/.factory"
-COMMANDS_DIR="$FACTORY_DIR/commands/sd"
+COMMANDS_DIR="$FACTORY_DIR/commands"
 DROIDS_DIR="$FACTORY_DIR/droids"
 
 # Options
