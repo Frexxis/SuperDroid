@@ -177,14 +177,26 @@ def install_droids(force: bool = False) -> Tuple[bool, str]:
     """
     Install SuperDroid droids to Factory CLI.
     
+    Installs to both:
+    - ~/.factory/droids/ (global)
+    - ./.factory/droids/ (project, if .factory exists)
+    
     Args:
         force: Overwrite existing droids
         
     Returns:
         Tuple of (success, message)
     """
-    target_path = Path.home() / ".factory" / "droids"
-    target_path.mkdir(parents=True, exist_ok=True)
+    # Target paths
+    global_path = Path.home() / ".factory" / "droids"
+    project_path = Path.cwd() / ".factory" / "droids"
+    
+    # Always install to global
+    target_paths = [global_path]
+    
+    # Also install to project if .factory exists there
+    if (Path.cwd() / ".factory").exists():
+        target_paths.append(project_path)
     
     try:
         package_root = get_package_root()
@@ -193,22 +205,35 @@ def install_droids(force: bool = False) -> Tuple[bool, str]:
         if not source_dir.exists():
             return False, f"❌ Source droids not found: {source_dir}"
         
-        installed = 0
-        skipped = 0
+        total_installed = 0
+        total_skipped = 0
+        locations = []
         
-        for droid_file in source_dir.glob("*.md"):
-            dest_file = target_path / droid_file.name
+        for target_path in target_paths:
+            target_path.mkdir(parents=True, exist_ok=True)
+            installed = 0
+            skipped = 0
             
-            if dest_file.exists() and not force:
-                skipped += 1
-                continue
+            for droid_file in source_dir.glob("*.md"):
+                dest_file = target_path / droid_file.name
+                
+                if dest_file.exists() and not force:
+                    skipped += 1
+                    continue
+                
+                shutil.copy2(droid_file, dest_file)
+                installed += 1
             
-            shutil.copy2(droid_file, dest_file)
-            installed += 1
+            total_installed += installed
+            total_skipped += skipped
+            if installed > 0:
+                locations.append(str(target_path))
         
-        msg = f"✅ Droids: {installed} installed"
-        if skipped > 0:
-            msg += f", {skipped} skipped"
+        msg = f"✅ Droids: {total_installed} installed"
+        if total_skipped > 0:
+            msg += f", {total_skipped} skipped"
+        if len(locations) > 1:
+            msg += f" (global + project)"
         
         return True, msg
         
